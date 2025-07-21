@@ -79,7 +79,6 @@ export const getProfile = async (req, res) => {
       select: {
         id: true,
         userId: true,
-        role: true,
         clientId: true,
         createdAt: true,
       },

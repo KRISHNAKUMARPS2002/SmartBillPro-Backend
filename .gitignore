@@ -37,3 +37,6 @@ pids/
 # Local database dumps (optional)
 *.sql
 *.dump
+
+generated/
+

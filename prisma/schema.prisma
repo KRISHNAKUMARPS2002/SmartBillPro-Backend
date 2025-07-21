@@ -19,7 +19,6 @@ model User {
   userId    String   @unique
   clientId  String // Just a string, assigned by backend
   password  String
-  role      String // e.g. 'admin', 'waiter'
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

@@ -4,7 +4,7 @@ import prisma from "../utils/prismaClient.js";
 
 export const register = async (req, res) => {
   try {
-    const { userId, password, role } = req.body;
+    const { userId, password } = req.body;
 
     const existingUser = await prisma.user.findUnique({ where: { userId } });
     if (existingUser)
@@ -28,7 +28,6 @@ export const register = async (req, res) => {
       data: {
         userId,
         password: hashedPassword,
-        role,
         clientId,
       },
     });

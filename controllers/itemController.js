@@ -6,7 +6,13 @@ import prisma from "../utils/prismaClient.js";
 // ➕ Create Item
 export const createItem = async (req, res) => {
   try {
-    const { name, description, price, inStock = true } = req.body;
+    const {
+      name,
+      itemCode,
+      price,
+      inStock = true,
+      pricingType = "UNIT",
+    } = req.body;
     const clientId = req.user.clientId;
 
     const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
@@ -14,11 +20,12 @@ export const createItem = async (req, res) => {
     const item = await prisma.item.create({
       data: {
         name,
-        description,
+        itemCode,
         price: parseFloat(price),
         imageUrl,
         inStock: inStock === "true",
         clientId,
+        pricingType,
       },
     });
 
@@ -73,7 +80,7 @@ export const updateItem = async (req, res) => {
   try {
     const { id } = req.params;
     const clientId = req.user.clientId;
-    const { name, description, price, inStock } = req.body;
+    const { name, itemCode, price, inStock, pricingType } = req.body;
 
     const existingItem = await prisma.item.findFirst({
       where: { id, clientId },
@@ -92,10 +99,11 @@ export const updateItem = async (req, res) => {
       where: { id },
       data: {
         name,
-        description,
+        itemCode,
         price: parseFloat(price),
         imageUrl,
         inStock: inStock === "true",
+        pricingType,
       },
     });
 
